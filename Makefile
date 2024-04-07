@@ -1,10 +1,23 @@
-all: orgaSmallwithStack_datasheet.pdf
+# MIT License
+# Copyright (c) 2022 David Alejandro Gonzalez Marquez
+# ----------------------------------------------------------------------------
+# -- OrgaSmallSystem ---------------------------------------------------------
+# ----------------------------------------------------------------------------
 
-orgaSmallwithStack_datasheet.pdf: orgaSmallwithStack_datasheet.tex
-	pdflatex $^
-	pdflatex $^
-	rm -f *.log *.aux *.ent *.idx *.nav *.out *.snm *.toc *.vrb
+# Generate the memory code for the micro operations.
+# It is use into the Control Unit memory.
+
+SOURCE := microCode.ops
+
+OUTPUT_C := microCode.mem
+OUTPUT_V := microCodeVerilog.mem
+
+all: $(OUTPUT_C)
+
+ASM=python ../tools/buildMicroOps.py
+
+%.mem: %.ops
+	$(ASM) $<
 
 clean:
-	rm -f orgaSmallwithStack_datasheet.pdf
-	rm -f *.log *.aux *.ent *.idx *.nav *.out *.snm *.toc *.vrb
+	rm -f $(OUTPUT_C) $(OUTPUT_V)
