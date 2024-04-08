@@ -1,0 +1,6 @@
+start |00| SET R7 , 0xFF
+      |02| SET R6 , 0x03
+      |04| PUSH | R7 | , R6
+      |06| DB 0x77
+      |07| DB 0x50
+ halt |08| JMP halt

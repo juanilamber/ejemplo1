@@ -1,0 +1,17 @@
+start, shift |00| SET R7 , 0xFF
+             |02| PUSH | R7 | , R3
+             |04| SET R0 , 0x01
+             |06| SHR R3 , 2
+             |08| SET R1 , 0x00
+             |0a| STR [ R2 ] , R3
+             |0c| SET R2 , 0x40
+             |0e| POP | R7 | , R3
+             |10| SET R3 , 0x10
+             |12| SUB R3 , R0
+             |14| RET | R7 |
+        loop |16| CALL | R7 | , shift
+             |18| SUB R2 , R0
+             |1a| CMP R1 , R3
+             |1c| JZ end
+             |1e| JMP loop
+         end |20| JMP end

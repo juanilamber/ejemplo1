@@ -1,0 +1,67 @@
+      main |00| SET R7 , 0xFF
+           |02| SET R0 , p
+           |04| SET R1 , 0x10
+           |06| CALL | R7 | , modarray
+      halt |08| JMP halt
+  modarray |0a| PUSH | R7 | , R0
+           |0c| PUSH | R7 | , R1
+           |0e| PUSH | R7 | , R2
+           |10| PUSH | R7 | , R3
+           |12| PUSH | R7 | , R4
+           |14| PUSH | R7 | , R5
+           |16| PUSH | R7 | , R6
+           |18| SET R5 , 0x00
+           |1a| SET R6 , 0x03
+           |1c| SET R2 , 0x00
+           |1e| SET R4 , 0x01
+           |20| SET R3 , 0x00
+           |22| JMP ciclo
+     ciclo |24| CMP R1 , R2
+           |26| JZ fin
+           |28| LOAD R5 , [ R0 ]
+           |2a| MOV R3 , R5
+           |2c| AND R5 , R6
+           |2e| CMP R5 , R2
+           |30| MOV R5 , R3
+           |32| JZ esMultiplo
+           |34| JMP elResto
+esMultiplo |36| SHRA R5 , 1
+           |38| SUB R5 , R4
+           |3a| SUB R5 , R4
+           |3c| STR [ R0 ] , R5
+           |3e| SUB R1 , R4
+           |40| ADD R0 , R4
+           |42| JMP ciclo
+   elResto |44| SHL R5 , 2
+           |46| ADD R5 , R3
+           |48| ADD R5 , R3
+           |4a| ADD R5 , R3
+           |4c| ADD R5 , R4
+           |4e| STR [ R0 ] , R5
+           |50| SUB R1 , R4
+           |52| ADD R0 , R4
+           |54| JMP ciclo
+       fin |56| POP | R7 | , R6
+           |58| POP | R7 | , R5
+           |5a| POP | R7 | , R4
+           |5c| POP | R7 | , R3
+           |5e| POP | R7 | , R2
+           |60| POP | R7 | , R1
+           |62| POP | R7 | , R0
+           |64| RET | R7 |
+         p |66| DB 0x01
+           |67| DB 0x02
+           |68| DB 0x04
+           |69| DB 0x08
+           |6a| DB 0x03
+           |6b| DB 0x03
+           |6c| DB 0xA1
+           |6d| DB 0xC0
+           |6e| DB 0xFF
+           |6f| DB 0x40
+           |70| DB 0x55
+           |71| DB 0xCC
+           |72| DB 0xBD
+           |73| DB 0x45
+           |74| DB 0x9A
+           |75| DB 0xEE
